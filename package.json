@@ -1,0 +1,17 @@
+{
+  "name": "chaos-ajax",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/juffalow/chaos-ajax.git",
+  "author": "juffalow@juffalow.com",
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^4.1.1"
+  },
+  "scripts": {
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "webpack-cli": "^2.0.12"
+  }
+}
