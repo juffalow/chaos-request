@@ -1,14 +1,43 @@
 # Chaos AJAX
 
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?maxAge=2592000)](https://github.com/juffalow/chaos-ajax/blob/master/LICENSE)
+
 Chaos Ajax will change the AJAX response from time to time, so your application
 cannot rely on getting only successful response from the server. It makes you
 think what is going to happen if API is not working or something goes wrong.
 
 This project was inspired by [Chaos Monkey](https://github.com/Netflix/chaosmonkey)
 
+## Installation
+
+```shell
+npm install
+
+# or
+
+yarn install
+```
+
+## Build
+
+```shell
+npm run Build
+
+# or
+
+yarn run build
+```
+
 ## How it works
 
-Add the script to your page and call  `chaosAjax();`.
+Just add the script to the header or to the end of your page and call `chaos();`.
+
+```html
+<script src="bundle.js"></script>
+<script>
+  chaos();
+</script>
+```
 
 ## Options
 
@@ -70,3 +99,7 @@ chaosAjax({
   }
 });
 ```
+
+## License
+
+[MIT license](./LICENSE)
