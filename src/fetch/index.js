@@ -419,17 +419,15 @@ var overrideFetch = function(self, shouldChangeResponse, getResponse) {
 
   self.fetch = function(input, init) {
     if (shouldChangeResponse(arguments[0])) {
-      console.log('fetch has been changed!');
       return new Promise(function(resolve, reject) {
-          resolve(new Response(getResponse(input).responseText, options))
+          resolve(new Response(getResponse(input).responseText, {}))
       });
     }
-    console.log('fetch is old');
-    return fetchOrigin(arguments);
+    return fetchOrigin.apply(this, arguments);
   }
   self.fetch.polyfill = true
 }
 
 export default function(window, shouldChangeResponse, getResponse) {
-  overrideFetch(window);
+  overrideFetch(window, shouldChangeResponse, getResponse);
 }
