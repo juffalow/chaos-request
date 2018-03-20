@@ -1,10 +1,12 @@
-# Chaos AJAX
+# Chaos Request
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg?maxAge=2592000)](https://github.com/juffalow/chaos-ajax/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?maxAge=2592000)](https://github.com/juffalow/chaos-request/blob/master/LICENSE)
 
-Chaos Ajax will change the AJAX response from time to time, so your application
+Chaos Request will change the *XHR* & *Fetch* response from time to time, so your application
 cannot rely on getting only successful response from the server. It makes you
 think what is going to happen if API is not working or something goes wrong.
+
+Also it can mock your missing API calls, so you can work without waiting for backend to be implemented.
 
 This project was inspired by [Chaos Monkey](https://github.com/Netflix/chaosmonkey)
 
@@ -39,6 +41,10 @@ Just add the script to the header or to the end of your page and call `chaos();`
 </script>
 ```
 
+## Example
+
+You can see the example [here](./test/index.html).
+
 ## Options
 
 #### Probability
@@ -49,7 +55,7 @@ need higher / lower probability, you can change it by calling:
 ```javascript
 // change the probability to 100%
 
-chaosAjax({probability: 1});
+chaos({probability: 1});
 ```
 
 #### Only specific url(s)
@@ -57,7 +63,7 @@ chaosAjax({probability: 1});
 If you need to change the response for a specific url:
 
 ```javascript
-chaosAjax({
+chaos({
   probability: 0,
   urls: {
     'http://example.com/something': {
@@ -76,7 +82,7 @@ URL, it will get empty responseText.
 If you need to test, what your application does if it gets `401 Unauthorized`, just change the default response object:
 
 ```javascript
-chaosAjax({
+chaos({
   defaultResponse: {
     responseText: '{}',
     status: 401,
@@ -88,7 +94,7 @@ chaosAjax({
 Or if you need to test only a specific URL to return `401 Unauthorized`:
 
 ```javascript
-chaosAjax({
+chaos({
   probability: 0,
   urls: {
     'http://example.com/something': {
