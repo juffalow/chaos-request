@@ -1,6 +1,6 @@
 {
   "name": "chaos-request",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.js",
   "repository": "https://github.com/juffalow/chaos-ajax.git",
   "author": {
@@ -9,13 +9,11 @@
     "url": "https://juffalow.com"
   },
   "license": "MIT",
-  "dependencies": {
-    "webpack": "^4.1.1"
-  },
   "scripts": {
     "build": "webpack"
   },
   "devDependencies": {
+    "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12"
   },
   "keywords": [
