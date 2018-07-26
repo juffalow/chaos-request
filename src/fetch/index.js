@@ -421,7 +421,7 @@ var overrideFetch = function(self, shouldChangeResponse, getResponse) {
     if (shouldChangeResponse(arguments[0])) {
       return new Promise(function(resolve, reject) {
           const response = getResponse(input);
-          resolve(new Response(reponse.responseText, { status: response.status }))
+          resolve(new Response(response.responseText, { status: response.status }))
       });
     }
     return fetchOrigin.apply(this, arguments);
