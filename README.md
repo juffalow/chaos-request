@@ -13,97 +13,112 @@ This project was inspired by [Chaos Monkey](https://github.com/Netflix/chaosmonk
 ## Installation
 
 ```shell
-npm install
+npm install [--save-dev] chaos-request
 
 # or
 
-yarn install
-```
-
-## Build
-
-```shell
-npm run Build
-
-# or
-
-yarn run build
+yarn add [--dev] chaos-request
 ```
 
 ## How it works
 
-Just add the script to the header or to the end of your page and call `chaos();`.
+```javascript
+import ChaosRequest from 'chaos-request';
 
-```html
-<script src="bundle.js"></script>
-<script>
-  chaos();
-</script>
+ChaosRequest.mock();
 ```
 
-## Example
+## React example
 
-You can see the example [here](./test/index.html).
+In the root component ( let's say `App` ), import `ChaosRequest` and in `componentDidMount` method, call `mock`.
+
+```javascript
+import React, { Component } from 'react';
+import ChaosRequest from './chaos-request';
+
+class App extends Component {
+  componentDidMount() {
+    ChaosRequest.mock();
+  }
+
+  render() {
+    return (<div></div>);
+  }
+}
+```
+
+This will create a default mock - probability is 20% and default response is empty object `{}` with status `400`.
 
 ## Options
 
-#### Probability
-
-The default probability that the request returns empty array is 10%. If you
-need higher / lower probability, you can change it by calling:
+The `mock` function takes two parameters:
 
 ```javascript
-// change the probability to 100%
+mock: function(shouldChangeResponse, getResponse) {
 
-chaos({probability: 1});
+}
 ```
 
-#### Only specific url(s)
+#### shouldChangeResponse
 
-If you need to change the response for a specific url:
+The `shouldChangeResponse` is called before network call. If it returns true, the response is changed. If it returns false, everything continues without any change.
 
 ```javascript
-chaos({
-  probability: 0,
-  urls: {
-    'http://example.com/something': {
-      responseText: '',
-    }
+const shouldChangeResponseFunction = function(url) {
+  return Math.random() <= 0.2;
+}
+```
+
+But if you need to get more probability for some specific URL, you can easily modify it:
+
+```javascript
+const shouldChangeResponseFunction = function(url) {
+  if (url === 'some specific URL') {
+    return true;
   }
-});
+
+  return Math.random() <= 0.2;
+}
 ```
 
-This will change the probability to 0%, so it will not change any other request / response.
-And set the condition to only one URL which means anytime the front-end will make request on that specific
-URL, it will get empty responseText.
+#### getResponse
 
-#### Change status code
-
-If you need to test, what your application does if it gets `401 Unauthorized`, just change the default response object:
+The `getResponse` is used for either default response or url specific response.
 
 ```javascript
-chaos({
-  defaultResponse: {
+const getResponseFunction = function(url) {
+  return {
     responseText: '{}',
-    status: 401,
-    statusText: 'Unauthorized',
-  }
-});
+    status: 400,
+    statusText: 'Bad Request',
+  };
+}
 ```
 
-Or if you need to test only a specific URL to return `401 Unauthorized`:
+If you need to return different responses for different URLs:
 
 ```javascript
-chaos({
-  probability: 0,
-  urls: {
-    'http://example.com/something': {
-      responseText: '',
-      status: 401,
-      statusText: 'Unauthorized',
-    }
+const getResponseFunction = function(url) {
+  switch(url) {
+    case 'url1':
+      return {
+        responseText: '{value:"Response for url1"}',
+        status: 200,
+        statusText: 'OK',
+      };
+    case 'url2':
+      return {
+        responseText: '{value:"Response for url2"}',
+        status: 200,
+        statusText: 'OK',
+      };
   }
-});
+  return {
+    responseText: '{}',
+    status: 400,
+    statusText: 'Bad Request',
+  };
+}
 ```
 
 ## License

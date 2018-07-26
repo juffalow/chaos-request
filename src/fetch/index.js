@@ -420,7 +420,8 @@ var overrideFetch = function(self, shouldChangeResponse, getResponse) {
   self.fetch = function(input, init) {
     if (shouldChangeResponse(arguments[0])) {
       return new Promise(function(resolve, reject) {
-          resolve(new Response(getResponse(input).responseText, {}))
+          const response = getResponse(input);
+          resolve(new Response(reponse.responseText, { status: response.status }))
       });
     }
     return fetchOrigin.apply(this, arguments);

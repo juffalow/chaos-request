@@ -1,9 +1,13 @@
 {
-  "name": "chaos-ajax",
-  "version": "1.0.0",
+  "name": "chaos-request",
+  "version": "2.0.0",
   "main": "index.js",
   "repository": "https://github.com/juffalow/chaos-ajax.git",
-  "author": "juffalow@juffalow.com",
+  "author": {
+    "name": "Matej Jellus",
+    "email": "juffalow@juffalow.com",
+    "url": "https://juffalow.com"
+  },
   "license": "MIT",
   "dependencies": {
     "webpack": "^4.1.1"
@@ -13,5 +17,12 @@
   },
   "devDependencies": {
     "webpack-cli": "^2.0.12"
-  }
+  },
+  "keywords": [
+    "ajax",
+    "fetch",
+    "xhr",
+    "fetch-mock",
+    "xhr-mock"
+  ]
 }
