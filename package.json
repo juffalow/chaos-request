@@ -1,6 +1,7 @@
 {
   "name": "chaos-request",
-  "version": "2.0.1",
+  "version": "2.0.2",
+  "description": "Mock API to test your frontend application.",
   "main": "index.js",
   "repository": "https://github.com/juffalow/chaos-ajax.git",
   "author": {
