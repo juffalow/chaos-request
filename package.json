@@ -1,27 +1,26 @@
 {
   "name": "chaos-request",
-  "version": "2.0.2",
+  "version": "3.0.1",
   "description": "Mock API to test your frontend application.",
   "main": "index.js",
-  "repository": "https://github.com/juffalow/chaos-ajax.git",
+  "module": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juffalow/chaos-ajax.git"
+  },
+  "bugs": {
+    "url": "https://github.com/juffalow/chaos-request/issues"
+  },
   "author": {
     "name": "Matej Jellus",
     "email": "juffalow@juffalow.com",
     "url": "https://juffalow.com"
   },
   "license": "MIT",
-  "scripts": {
-    "build": "webpack"
-  },
-  "devDependencies": {
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.12"
-  },
   "keywords": [
-    "ajax",
     "fetch",
-    "xhr",
-    "fetch-mock",
-    "xhr-mock"
+    "stub",
+    "test",
+    "testing"
   ]
 }
