@@ -1,29 +1,39 @@
-import mockXhr from './src/xhr';
-import mockFetch from './src/fetch';
+export default class ChaosRequest {
+  constructor(shouldChangeResponse, getResponse) {
 
-const shouldChangeResponseFunction = function(url) {
-  const random = Math.random();
-  console.log(random);
-  if (random <= 0.2) {
-    console.log('true');
-    return true;
+    this.shouldChangeResponse = typeof shouldChangeResponse === 'function' ? shouldChangeResponse : function() {
+      return true;
+    };
+
+    this.getResponse = typeof getResponse === 'function' ? getResponse : function() {
+      return {
+        body: JSON.stringify({}),
+        init: {
+          status: 200,
+          statusText: 'OK',
+          headers: {
+            'Content-type': 'application/json',
+          },
+        },
+      };
+    };
   }
-  return false;
-}
 
-const getResponseFunction = function(url) {
-  return {
-    responseText: '{}',
-    status: 400,
-    statusText: 'Bad Request',
-  };
-}
+  mock() {
+    this.fetch = window.fetch;
+    window.fetch = (...args) => {
+      if (this.shouldChangeResponse(args)) {
+        return new Promise((resolve) => {
+          const response = this.getResponse(args);
 
-export default {
-  mock: function(shouldChangeResponse, getResponse) {
-    shouldChangeResponse = typeof shouldChangeResponse === 'function' ? shouldChangeResponse : shouldChangeResponseFunction;
-    getResponse = typeof getResponse === 'function' ? getResponse : getResponseFunction;
-    mockXhr(shouldChangeResponse, getResponse);
-    mockFetch(window, shouldChangeResponse, getResponse);
+          resolve(new Response(response.body, response.init));
+        });
+      }
+      return this.fetch.apply(null, args);
+    }
+  }
+
+  restore() {
+    window.fetch = this.fetch;
   }
 };
