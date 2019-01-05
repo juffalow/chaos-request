@@ -1,6 +1,6 @@
 {
   "name": "chaos-request",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Mock API to test your frontend application.",
   "main": "index.js",
   "module": "index.js",
