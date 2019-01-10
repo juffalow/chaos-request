@@ -24,9 +24,8 @@ export default class ChaosRequest {
     window.fetch = (...args) => {
       if (this.shouldChangeResponse(args)) {
         return new Promise((resolve) => {
-          const response = this.getResponse(args);
-
-          resolve(new Response(response.body, response.init));
+          Promise.resolve(this.getResponse(args, this.fetch))
+            .then(response => resolve(new Response(response.body, response.init)));
         });
       }
       return this.fetch.apply(null, args);
